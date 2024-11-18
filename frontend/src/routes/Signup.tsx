@@ -31,6 +31,7 @@ export const Signup: React.FC = () => {
   };
 
   const handleRegister = () => {
+    console.log('handleRegister');
     if (password !== confirmPassword) {
       setError('Le password non corrispondono.');
     } else if (password === '' || confirmPassword === '') {
@@ -53,100 +54,101 @@ export const Signup: React.FC = () => {
       <Typography level="h2" component="h1" sx={{ mb: 2 }}>
         Sign-up
       </Typography>
+      <form onSubmit={handleRegister}>
+        <FormControl>
+          <FormLabel>Nome</FormLabel>
+          <Input
+            placeholder="Inserisci il tuo nome"
+            color="neutral"
+            size="lg"
+            variant="outlined"
+            sx={{ mb: 2 }}
+          />
+        </FormControl>
 
-      <FormControl>
-        <FormLabel>Nome</FormLabel>
-        <Input
-          placeholder="Inserisci il tuo nome"
-          color="neutral"
-          size="lg"
-          variant="outlined"
-          sx={{ mb: 2 }}
-        />
-      </FormControl>
+        <FormControl>
+          <FormLabel>Cognome</FormLabel>
+          <Input
+            placeholder="Inserisci il tuo cognome"
+            color="neutral"
+            size="lg"
+            variant="outlined"
+            sx={{ mb: 2 }}
+          />
+        </FormControl>
 
-      <FormControl>
-        <FormLabel>Cognome</FormLabel>
-        <Input
-          placeholder="Inserisci il tuo cognome"
-          color="neutral"
-          size="lg"
-          variant="outlined"
-          sx={{ mb: 2 }}
-        />
-      </FormControl>
+        <FormControl>
+          <FormLabel>Email</FormLabel>
+          <Input
+            placeholder="Inserisci l'email"
+            color="neutral"
+            size="lg"
+            variant="outlined"
+            sx={{ mb: 2 }}
+          />
+        </FormControl>
 
-      <FormControl>
-        <FormLabel>Email</FormLabel>
-        <Input
-          placeholder="Inserisci l'email"
-          color="neutral"
-          size="lg"
-          variant="outlined"
-          sx={{ mb: 2 }}
-        />
-      </FormControl>
+        <FormControl>
+          <FormLabel>Password</FormLabel>
+          <Input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Inserisci la tua password"
+            value={password}
+            onChange={handlePasswordChange}
+            sx={{ mb: 1 }}
+          />
+          <Box sx={{ display: 'flex', gap: '4px', mb: 1 }}>
+            {[...Array(4)].map((_, index) => (
+              <Box
+                key={index}
+                sx={{
+                  height: '10px',
+                  width: '25%',
+                  backgroundColor: getBarColor(index),
+                  borderRadius: '2px',
+                }}
+              />
+            ))}
+          </Box>
+          <FormHelperText sx={{ mb: 2 }}>
+            La password deve essere lunga almeno 8 caratteri e contenere lettere maiuscole, minuscole, numeri e simboli speciali.
+          </FormHelperText>
+          <Checkbox
+            checked={showPassword}
+            onChange={() => setShowPassword(!showPassword)}
+            label="Mostra password"
+            sx={{ mb: 2 }}
+          />
+        </FormControl>
 
-      <FormControl>
-        <FormLabel>Password</FormLabel>
-        <Input
-          type={showPassword ? 'text' : 'password'}
-          placeholder="Inserisci la tua password"
-          value={password}
-          onChange={handlePasswordChange}
-          sx={{ mb: 1 }}
-        />
-        <Box sx={{ display: 'flex', gap: '4px', mb: 1 }}>
-          {[...Array(4)].map((_, index) => (
-            <Box
-              key={index}
-              sx={{
-                height: '10px',
-                width: '25%',
-                backgroundColor: getBarColor(index),
-                borderRadius: '2px',
-              }}
-            />
-          ))}
-        </Box>
-        <FormHelperText sx={{ mb: 2 }}>
-          La password deve essere lunga almeno 8 caratteri e contenere lettere maiuscole, minuscole, numeri e simboli speciali.
-        </FormHelperText>
-        <Checkbox
-          checked={showPassword}
-          onChange={() => setShowPassword(!showPassword)}
-          label="Mostra password"
-          sx={{ mb: 2 }}
-        />
-      </FormControl>
+        <FormControl>
+          <FormLabel>Conferma password</FormLabel>
+          <Input
+            type={showConfirmPassword ? 'text' : 'password'}
+            placeholder="Conferma la password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+            sx={{ mb: 1 }}
+          />
+          <Checkbox
+            checked={showConfirmPassword}
+            onChange={() => setShowConfirmPassword(!showConfirmPassword)}
+            label="Mostra conferma password"
+            sx={{ mb: 2 }}
+          />
+        </FormControl>
 
-      <FormControl>
-        <FormLabel>Conferma password</FormLabel>
-        <Input
-          type={showConfirmPassword ? 'text' : 'password'}
-          placeholder="Conferma la password"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-          sx={{ mb: 1 }}
-        />
-        <Checkbox
-          checked={showConfirmPassword}
-          onChange={() => setShowConfirmPassword(!showConfirmPassword)}
-          label="Mostra conferma password"
-          sx={{ mb: 2 }}
-        />
-      </FormControl>
+        {/* Messaggio di errore */}
+        {error && (
+          <Typography level="body2" color="danger" sx={{ mb: 2 }}>
+            {error}
+          </Typography>
+        )}
 
-      {/* Messaggio di errore */}
-      {error && (
-        <Typography level="body2" color="danger" sx={{ mb: 2 }}>
-          {error}
-        </Typography>
-      )}
-
-      <Button variant="solid" color="primary" fullWidth onClick={handleRegister}>
-        Register
-      </Button>
+        <Button variant="solid" color="primary" fullWidth onClick={handleRegister}>
+          Register
+        </Button>
+      </form>
     </div>
   );
 };
